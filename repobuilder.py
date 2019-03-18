@@ -35,8 +35,8 @@ props = pr_inputs or et_inputs or st_inputs or ut_inputs
 pr_shc = get_response("pr shc")
 et_shc = get_response("et shc")
 
-uri_string = "https://api.bitbucket.org/2.0/repositories/mikevosskuhler/"+
-                project_name
+uri_string = "https://api.bitbucket.org/2.0/repositories/mikevosskuhler/"+\
+             project_name
 data_string = "name="+project_name
 
 bb_response = requests.post(uri_string, auth=(username, password),
@@ -79,29 +79,15 @@ clone_uri_wpw = clone_uri.replace("@", ":"+password+"@")
 def push(message):
     sh.git.add(".")
     sh.git.commit(m=message)
-    sh.git.commit(clone_uri_wpw)
+    sh.git.push(clone_uri_wpw)
 def create_checkout(branchname):
     sh.git.branch(branchname)
     sh.git.checkout(branchname)
 
-sh.git.add(".")
-sh.git.commit(m="initial commit")
-sh.git.push(clone_uri_wpw)
-# push("initial commit")
-sh.git.branch("et")
-sh.git.checkout("et")
-# create_checkout("et")
+push("initial commit")
+create_checkout("et")
 sh.rm("-rf", "pr/")
-sh.git.add(".")
-sh.git.commit(m="initial commit for pr")
-sh.git.push(clone_uri_wpw)
-# push("initial commit in et")
-sh.git.checkout("master")
-sh.git.branch("pr")
-sh.git.checkout("pr")
-# create_checkout("pr")
+push("initial commit in et")
+create_checkout("pr")
 sh.rm("-rf", "et")
-sh.git.add(".")
-sh.git.commit(m="initial commit for pr")
-sh.git.push(clone_uri_wpw)
-# push("initial commit for pr")
+push("initial commit for pr")
