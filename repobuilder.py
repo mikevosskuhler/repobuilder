@@ -2,7 +2,7 @@
 The purpose of this script is to quickly create a bitbucket repository that
 allows for the deployment of splunk apps via the cicd pipeline. The user should
 not have to have any interactions with git and the script should clean up after
-itself
+itself.
 '''
 
 import os
@@ -91,3 +91,5 @@ push("initial commit in et")
 create_checkout("pr")
 sh.rm("-rf", "et")
 push("initial commit for pr")
+
+sh.rm("-rf", project_name)
